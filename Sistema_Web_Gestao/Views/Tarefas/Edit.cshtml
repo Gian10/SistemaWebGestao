@@ -1,0 +1,93 @@
+﻿@model Sistema_Web_Gestao.Models.Tarefa
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="max-w-4xl mx-auto py-8">
+    <h1 class="text-2xl font-bold text-white mb-6">Editar Tarefa</h1>
+    <hr class="border-gray-300 my-4" />
+
+    <form id="editForm" asp-action="Edit" method="post" enctype="multipart/form-data" class="bg-white shadow rounded-lg p-6 space-y-6" novalidate>
+        <!-- Mensagens de Validação -->
+        <div asp-validation-summary="ModelOnly" class="text-red-600"></div>
+
+        <fieldset class="space-y-4">
+            <legend class="text-lg font-semibold text-gray-800 mb-4">Informações da Tarefa</legend>
+
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="hidden" id="UsuarioId" name="UsuarioId" value="@Model.UsuarioId" />
+
+            <div>
+                <label asp-for="Mensagem" class="block text-sm font-medium text-gray-700">Mensagem</label>
+                <input asp-for="Mensagem" class="input-field border-gray-300 rounded-md w-full text-black" placeholder="Digite a mensagem da tarefa" />
+                <span asp-validation-for="Mensagem" class="error-message text-red-600 text-sm"></span>
+            </div>
+
+            <div>
+                <label asp-for="DataLimite" class="block text-sm font-medium text-gray-700">Data Limite</label>
+                <input asp-for="DataLimite" type="date" class="input-field border-gray-300 rounded-md w-full text-black" />
+                <span asp-validation-for="DataLimite" class="error-message text-red-600 text-sm"></span>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Usuário</label>
+                <input class="input-field border-gray-300 rounded-md w-full text-black" readonly value="@ViewBag.UsuarioNome" />
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <input asp-for="Finalizada" type="checkbox" class="form-check-input h-4 w-4 text-blue-600 border-gray-300 rounded" />
+                <label asp-for="Finalizada" class="text-sm font-medium text-gray-700">Finalizada</label>
+            </div>
+
+        </fieldset>
+
+        <div class="flex items-center justify-between mt-6">
+            <a asp-action="Index" class="text-blue-600 hover:underline text-sm font-medium">Voltar para Lista</a>
+
+            <button type="submit" id="saveButton" class="btn-submit bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow">
+                Salvar
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById("saveButton").addEventListener("click", async function (event) {
+        event.preventDefault();
+
+        const form = document.getElementById("editForm");
+
+        const jsonData = {
+            Id: form.querySelector('[name="Id"]').value,
+            Mensagem: form.querySelector('[name="Mensagem"]').value,
+            DataLimite: form.querySelector('[name="DataLimite"]').value,
+            Finalizada: form.querySelector('[name="Finalizada"]').checked,
+            UsuarioId: form.querySelector('[name="UsuarioId"]').value
+        };
+
+        try {
+            const response = await fetch('/Tarefas/Edit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            });
+
+            if (response.ok) {
+                const responseData = await response.json(); 
+                alert(responseData.message || "Tarefa editada com sucesso!");
+                window.location.href = "/Tarefas/Index";
+            } else {
+                const errorData = await response.json();
+                alert(errorData.message || "Erro ao editar a tarefa.");
+            }
+        } catch (error) {
+            alert("Ocorreu um erro ao editar a tarefa.");
+            console.error("Erro ao enviar a requisição:", error);
+        }
+    });
+
+</script>

@@ -1,0 +1,64 @@
+﻿@model Sistema_Web_Gestao.Models.Usuario
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="max-w-4xl mx-auto py-8">
+    <h1 class="text-2xl font-bold text-white mb-6">Detalhes do Usuário</h1>
+    <hr class="border-gray-300 my-4" />
+
+    <form id="detailForm" class="bg-white shadow rounded-lg p-6 space-y-6">
+        <div asp-validation-summary="ModelOnly" class="text-red-600"></div>
+
+        <fieldset class="space-y-4">
+            <legend class="text-lg font-semibold text-gray-800 mb-4">Informações do Usuário</legend>
+
+            <div>
+                <label asp-for="NomeCompleto" class="block text-sm font-medium text-gray-700">Nome Completo</label>
+                <input asp-for="NomeCompleto" class="input-field border-gray-300 rounded-md w-full text-black" readonly />
+            </div>
+
+            <div>
+                <label asp-for="DataNascimento" class="block text-sm font-medium text-gray-700">Data de Nascimento</label>
+                <input asp-for="DataNascimento" type="date" class="input-field border-gray-300 rounded-md w-full text-black" readonly />
+            </div>
+
+            <div>
+                <label asp-for="TelefoneFixo" class="block text-sm font-medium text-gray-700">Telefone Fixo</label>
+                <input asp-for="TelefoneFixo" type="tel" class="input-field border-gray-300 rounded-md w-full text-black" readonly />
+            </div>
+
+            <div>
+                <label asp-for="Celular" class="block text-sm font-medium text-gray-700">Celular</label>
+                <input asp-for="Celular" type="tel" class="input-field border-gray-300 rounded-md w-full text-black" readonly />
+            </div>
+
+            <div>
+                <label asp-for="Email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input asp-for="Email" type="email" class="input-field border-gray-300 rounded-md w-full text-black" readonly />
+            </div>
+
+            <div>
+                <label asp-for="Endereco" class="block text-sm font-medium text-gray-700">Endereço</label>
+                <input asp-for="Endereco" class="input-field border-gray-300 rounded-md w-full text-black" readonly />
+            </div>
+
+            <div>
+                <label asp-for="FotoUsuario" class="block text-sm font-medium text-gray-700">Foto do Usuário</label>
+                <input asp-for="FotoUsuario" type="text" class="input-field border-gray-300 rounded-md w-full text-black" readonly />
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <input asp-for="IsGestor" type="checkbox" class="form-check-input h-4 w-4 text-blue-600 border-gray-300 rounded" disabled />
+                <label asp-for="IsGestor" class="text-sm font-medium text-gray-700">Gestor</label>
+            </div>
+        </fieldset>
+
+        <div class="flex items-center justify-between mt-6">
+            <a asp-action="Index" class="text-blue-600 hover:underline text-sm font-medium">Voltar para Lista</a>
+        </div>
+    </form>
+</div>
+
+

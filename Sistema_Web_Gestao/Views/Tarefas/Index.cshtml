@@ -1,0 +1,110 @@
+﻿@model IEnumerable<Sistema_Web_Gestao.Models.Tarefa>
+
+@{
+    Layout = "_Layout";
+}
+
+<h1 class="text-2xl font-bold text-white mb-6">Tarefas</h1>
+
+<div class="mb-4">
+    <a asp-controller="Tarefas" asp-action="Create" class="inline-block bg-blue-500 text-white font-medium py-2 px-4 rounded hover:bg-blue-600">
+        Criar Nova Tarefa
+    </a>
+</div>
+
+<div class="overflow-x-auto shadow-md rounded-lg">
+    <table class="min-w-full divide-y divide-gray-200 bg-white">
+        <thead class="bg-gray-50">
+            <tr>
+                <th id="MensagemHeader" scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Mensagem
+                </th>
+                <th id="DataLimiteHeader" scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Data Limite
+                </th>
+                <th id="UsuarioHeader" scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Usuário
+                </th>
+                <th id="FinalizadaHeader" scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Finalizada
+                </th>
+                <th id="ActionsHeader" scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Ações
+                </th>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td aria-labelledby="MensagemHeader" class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                        @Html.DisplayFor(modelItem => item.Mensagem)
+                    </td>
+                    <td aria-labelledby="DataLimiteHeader" class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                        @item.DataLimite.ToString("dd/MM/yyyy")
+                    </td>
+                    <td aria-labelledby="UsuarioHeader" class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                        @Html.DisplayFor(modelItem => item.Usuario.NomeCompleto)
+                    </td>
+                    <td aria-labelledby="FinalizadaHeader" class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                        @Html.DisplayFor(modelItem => item.Finalizada)
+                    </td>
+                    <td aria-labelledby="ActionsHeader" class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <button onclick="handleAction('@item.Id', 'Edit')"
+                                class="text-blue-600 hover:text-blue-800">
+                            Editar
+                        </button>
+                        |
+                        <button onclick="handleAction('@item.Id', 'Details')"
+                                class="text-green-600 hover:text-green-800">
+                            Detalhe
+                        </button>
+                        |
+                        <button onclick="handleAction('@item.Id', 'Delete')"
+                                class="text-red-600 hover:text-red-800">
+                            Deletar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    async function handleAction(itemId, action) {
+        if (action === 'Edit') {
+            const url = `/Tarefas/${action}?id=${itemId}`;
+            window.location.href = url;
+        }
+        if (action === 'Details') {
+            const url = `/Tarefas/${action}?id=${itemId}`;
+            window.location.href = url;
+        }
+        else if (action === 'Delete') {
+            const confirmDelete = confirm('Tem certeza de que deseja deletar este item?');
+            if (!confirmDelete) return;
+
+            try {
+                const url = `/Tarefas/${action}?id=${itemId}`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    alert(data.message || 'Item deletado com sucesso.');
+                    location.reload();
+                } else {
+                    alert(`Erro ao excluir o item: ${response.statusText}`);
+                }
+            } catch (error) {
+                console.error('Erro de rede:', error);
+                alert('Erro ao tentar excluir o item. Verifique sua conexão.');
+            }
+        }
+    }
+</script>

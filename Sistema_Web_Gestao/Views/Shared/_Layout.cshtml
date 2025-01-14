@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema Web Gestão</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Configuração para modo dark */
+        body {
+            background-color: #121212;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+    <header>
+        <nav class="bg-gray-800">
+            <div class="container mx-auto flex items-center justify-between p-4">
+                <a href="/Home/Index" class="text-xl font-bold text-white">Sistema Web Gestão</a>
+                <button id="menuToggle" class="text-white text-2xl focus:outline-none lg:hidden">
+                    <!-- Ícone de 3 linhas -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+                <div id="menu" class="hidden lg:flex flex-col lg:flex-row lg:items-center space-y-4 lg:space-y-0 lg:space-x-4">
+                    <a href="/Login/Logoff" class="text-gray-300 hover:text-red-500 px-4 py-2">Sair</a>
+                    <a href="/Usuarios/Index" class="text-gray-300 hover:text-red-500 px-4 py-2">Usuário</a>
+                    <a href="/Tarefas/Index" class="text-gray-300 hover:text-red-800 px-4 py-2">Tarefa</a>
+                </div>
+            </div>
+
+            <div id="mobileMenu" class="hidden lg:hidden bg-gray-700">
+                <a href="/Login/Logoff" class="block text-gray-300 hover:text-red-500 px-4 py-2 border-b border-gray-600">Sair</a>
+                <a href="/Usuarios/Index" class="block text-gray-300 hover:text-red-500 px-4 py-2 border-b border-gray-600">Usuário</a>
+                <a href="/Tarefas/Index" class="block text-gray-300 hover:text-red-800 px-4 py-2">Tarefa</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mx-auto flex-1 mt-6">
+        <main>
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-center text-gray-400 py-4">
+        &copy; 2025 Sistema Web Gestão
+    </footer>
+
+    <!-- Script para alternar menu -->
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

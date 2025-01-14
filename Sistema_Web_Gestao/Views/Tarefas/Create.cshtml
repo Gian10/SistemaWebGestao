@@ -1,0 +1,92 @@
+﻿@model Sistema_Web_Gestao.Models.Tarefa
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="max-w-4xl mx-auto py-8">
+    <h1 class="text-2xl font-bold text-white mb-6">Cadastrar Tarefa</h1>
+    <hr class="border-gray-300 my-4" />
+
+    <form asp-action="Create" method="post" id="tarefaForm" class="bg-white shadow rounded-lg p-6 space-y-6" novalidate>
+        <!-- Mensagens de Validação -->
+        <div asp-validation-summary="ModelOnly" class="text-red-600"></div>
+
+        <fieldset class="space-y-4">
+            <legend class="text-lg font-semibold text-gray-800 mb-4">Detalhes da Tarefa</legend>
+
+            <div>
+                <label asp-for="Mensagem" class="block text-sm font-medium text-gray-700">Mensagem</label>
+                <input asp-for="Mensagem" class="input-field border-gray-300 rounded-md w-full text-black" placeholder="Digite a mensagem da tarefa" />
+                <span asp-validation-for="Mensagem" class="error-message text-red-600 text-sm"></span>
+            </div>
+
+            <div>
+                <label asp-for="DataLimite" class="block text-sm font-medium text-gray-700">Data Limite</label>
+                <input asp-for="DataLimite" type="date" class="input-field border-gray-300 rounded-md w-full text-black" />
+                <span asp-validation-for="DataLimite" class="error-message text-red-600 text-sm"></span>
+            </div>
+
+           @*  <div>
+                <label asp-for="UsuarioId" class="block text-sm font-medium text-gray-700">Usuário</label>
+                <select asp-for="UsuarioId" class="input-field border-gray-300 rounded-md w-full text-black" asp-items="ViewBag.UsuarioId"></select>
+            </div> *@
+
+            <div>
+                <label asp-for="UsuarioId" class="block text-sm font-medium text-gray-700">Usuário</label>
+                <select asp-for="UsuarioId" class="input-field border-gray-300 rounded-md w-full text-black" asp-items="ViewBag.UsuarioId"></select>
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <input asp-for="Finalizada" type="checkbox" class="form-check-input h-4 w-4 text-blue-600 border-gray-300 rounded" />
+                <label asp-for="Finalizada" class="text-sm font-medium text-gray-700">Finalizada</label>
+            </div>
+        </fieldset>
+
+        <div class="flex items-center justify-between mt-6">
+            <a asp-action="Index" class="text-blue-600 hover:underline text-sm font-medium">Voltar para Lista</a>
+
+            <button type="submit" id="salvarTarefa" class="btn-submit bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow">
+                Salvar
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById("salvarTarefa").addEventListener("click", async function (event) {
+        event.preventDefault();
+
+        const form = document.getElementById("tarefaForm");
+
+        const jsonData = {
+            Mensagem: form.querySelector('[id="Mensagem"]').value,
+            DataLimite: form.querySelector('[id="DataLimite"]').value,
+            UsuarioId: form.querySelector('[id="UsuarioId"]').value,
+            Finalizada: form.querySelector('[id="Finalizada"]').checked
+        };
+
+        try {
+            const response = await fetch('/Tarefas/Create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                alert(responseData.message || "Tarefa cadastrada com sucesso!");
+                window.location.href = "/Tarefas/Index";
+            } else {
+                const errorData = await response.json();
+                alert(errorData.message || "Erro ao cadastrar a tarefa.");
+            }
+        } catch (error) {
+            alert("Ocorreu um erro ao cadastrar a tarefa.");
+            console.error("Erro ao enviar a requisição:", error);
+        }
+    });
+</script>
