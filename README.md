@@ -28,4 +28,4 @@ Requisitos Técnicos (Tecnologias Disponíveis) • Frontend: HTML, CSS, JavaScr
   # Foi usando RDS para a aplicação consumir a banco, já que o Heroku não oferece um serviço de sqlServe:
     #A instancia do banco RDS está no arquivo appsettings.json com as credenciais
 # Git
-  #git clone https://github.com/Gian10/WebGestao.git
+  #git clone https://github.com/Gian10/SistemaWebGestao.git
