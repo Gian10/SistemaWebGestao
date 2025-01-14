@@ -19,13 +19,13 @@ Notificações por E-mail: • Subordinados receberão um e-mail sempre que uma 
 
 Requisitos Técnicos (Tecnologias Disponíveis) • Frontend: HTML, CSS, JavaScript, React, Tailwind CSS, Tailwind UI Components, UI Kit, Razor, jQuery. • Backend: C#. • Banco de Dados: SQL Server, PostgreSQL, MongoDB. • Controle de Versão: GitHub. • Plataforma de Hospedagem: Heroku ou similar (sugestões são bem-vindas). • Documentação: README.md - Incluir um passo a passo detalhado para execução da aplicação em outras máquinas. • Configuração do Banco de Dados: Instruções completas para a criação e configuração do banco de dados utilizado na aplicação.
 
-Configuração do Ambiente
-Comando para instalar as dependencias do .net:
- # dotnet restore
-Comandos para criar o banco no SQLSERVE usando o SSMS:
- # Add-Migration migrationInicial
- # Update-Database
-Foi usando RDS para a aplicação consumir a banco, já que o Heroku não oferece um serviço de sqlServe:
- # A instancia do banco RDS está no arquivo appsettings.json com as credenciais
-Git
- # git clone https://github.com/Gian10/WebGestao.git
+# Configuração do Ambiente
+  # Comando para instalar as dependencias do .net:
+    #dotnet restore
+  # Comandos para criar o banco no SQLSERVE usando o SSMS:
+    #Add-Migration migrationInicial
+    #Update-Database
+  # Foi usando RDS para a aplicação consumir a banco, já que o Heroku não oferece um serviço de sqlServe:
+    #A instancia do banco RDS está no arquivo appsettings.json com as credenciais
+# Git
+  #git clone https://github.com/Gian10/WebGestao.git
