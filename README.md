@@ -1,4 +1,4 @@
-WebGestao
+# Sistema Web de Gestao
 Objetivo: Desenvolver a base de um Sistema Web de Gestão que permitirá à empresa gerenciar usuários e agendar tarefas de forma eficiente.
 
 [Funcionalidades]
