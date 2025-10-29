@@ -7,8 +7,6 @@ Autenticação de Usuários
 
 Campos necessários: • Nome Completo • Data de Nascimento • Telefone Fixo • Celular • E-mail • Endereço • Foto do Usuário • Identificação dos usuários gestores, que terão acesso ao cadastro de novos usuários.
 
-Login: • Acesso ao sistema através de e-mail e senha. • Criação de um usuário padrão para o gestor operacional com as seguintes credenciais: • E-mail: oportunidades@smn.com.br • Senha: teste123
-
 Agendamento de Tarefas: gestores poderão cadastrar tarefas para seus subordinados.
 
 Campos da tarefa: Mensagem e Data Limite para Execução.
