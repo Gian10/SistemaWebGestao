@@ -40,14 +40,7 @@ namespace Sistema_Web_Gestao.Controllers
                 {             
                     return Ok();
                 }
-
-                if (login.Email == "oportunidades@smn.com.br" &&  login.Senha == "teste123" )    
-                {
-                    var Id = Guid.NewGuid();
-                    HttpContext.Session.SetString("UserId", Id.ToString());
-                    HttpContext.Session.SetString("UserName", "oportunidades");
-                    return Json(new { success = true, redirectUrl = Url.Action("Index", "Home") });
-                }
+               
                 // Foi usada criptografia para senha 
                 login.Senha = Useful.Encrypt(login.Senha);
                 var usuario = await _authService.AuthenticateAsync(login.Email, login.Senha);
